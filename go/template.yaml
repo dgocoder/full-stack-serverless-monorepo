@@ -1,0 +1,12 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+
+Resources:
+  hello:
+    Type: AWS::Serverless::Application
+    Properties:
+      Location: api/hello/template.yaml
+  goodbye:
+    Type: AWS::Serverless::Application
+    Properties:
+      Location: api/goodbye/template.yaml

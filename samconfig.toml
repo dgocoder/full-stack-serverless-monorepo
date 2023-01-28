@@ -1,0 +1,12 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+capabilities = "CAPABILITY_IAM CAPABILITY_AUTO_EXPAND"
+profile = "sandbox"
+stack_name = "sam-app"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-1wbbtdlmkz19f"
+s3_prefix = "sam-app"
+region = "us-east-2"
+parameter_overrides = "Stage=\"dev\""
+image_repositories = []
