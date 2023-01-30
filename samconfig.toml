@@ -1,12 +1,23 @@
 version = 0.1
-[default]
 [default.deploy]
 [default.deploy.parameters]
 capabilities = "CAPABILITY_IAM CAPABILITY_AUTO_EXPAND"
-profile = "sandbox"
-stack_name = "sam-app"
-s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-1wbbtdlmkz19f"
-s3_prefix = "sam-app"
+profile = "personal"
 region = "us-east-2"
-parameter_overrides = "Stage=\"dev\""
+stack_name = "monorepo"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-9q5efbpzm81s"
+s3_prefix = "monorepo"
+confirm_changeset = true
 image_repositories = []
+
+[default]
+[default.build]
+[default.build.parameters]
+cached = "true"
+parallel="true"
+# use_container="true"
+
+[default.local_invoke]
+[default.local_invoke.parameters]
+[default.local_start_api.parameters]
+env_vars = "env.local.json"
