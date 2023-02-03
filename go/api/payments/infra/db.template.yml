@@ -11,8 +11,8 @@ Parameters:
 Resources:
   PaymentsDB:
     Type: "AWS::DynamoDB::Table"
-    DeletionPolicy: Retain
-    UpdateReplacePolicy: Retain
+    DeletionPolicy: Delete
+    UpdateReplacePolicy: Delete
     Properties:
       AttributeDefinitions:
         - AttributeName: "pk"

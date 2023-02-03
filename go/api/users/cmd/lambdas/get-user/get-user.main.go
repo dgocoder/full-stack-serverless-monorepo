@@ -1,51 +1,51 @@
 package main
 
 import (
+	"context"
+	"encoding/json"
 	"errors"
-	"fmt"
-	"io/ioutil"
-	"net/http"
-	"os"
+	"net/url"
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
+	"github.com/dgocoder/full-stack-serverless-monorepo/go/api/users/internal/controllers"
 )
 
-var (
-	// DefaultHTTPGetAddress Default Address
-	DefaultHTTPGetAddress = "https://checkip.amazonaws.com"
-
-	// ErrNoIP No IP found in response
-	ErrNoIP = errors.New("No IP in HTTP response")
-
-	// ErrNon200Response non 200 status code in response
-	ErrNon200Response = errors.New("Non 200 Response found")
-)
-
-func handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
-	fmt.Println("WOAH2222 NEW")
-	fmt.Println("TABLE NAME:", os.Getenv("TABLE_NAME"))
-	resp, err := http.Get(DefaultHTTPGetAddress)
+func handler(
+	ctx context.Context,
+	request *events.APIGatewayProxyRequest,
+) (events.APIGatewayProxyResponse, error) {
+	ctrl, err := controllers.NewUserController()
 	if err != nil {
 		return events.APIGatewayProxyResponse{}, err
 	}
 
-	if resp.StatusCode != 200 {
-		return events.APIGatewayProxyResponse{}, ErrNon200Response
+	rawParam1, found := request.PathParameters["id"]
+	if !found {
+		return events.APIGatewayProxyResponse{}, errors.New("user id not specified")
 	}
 
-	ip, err := ioutil.ReadAll(resp.Body)
+	userID, err := url.QueryUnescape(rawParam1)
+	if err != nil {
+		return events.APIGatewayProxyResponse{}, errors.New("invalid user id specified")
+	}
+
+	user, err := ctrl.GetUser(ctx, userID)
 	if err != nil {
 		return events.APIGatewayProxyResponse{}, err
 	}
 
-	if len(ip) == 0 {
-		return events.APIGatewayProxyResponse{}, ErrNoIP
+	body, err := json.Marshal(user)
+	if err != nil {
+		return events.APIGatewayProxyResponse{}, err
 	}
 
 	return events.APIGatewayProxyResponse{
-		Body:       fmt.Sprintf("Hello, from users service %v", string(ip)),
+		Body:       string(body),
 		StatusCode: 200,
+		Headers: map[string]string{
+			"Content-Type": "application/json",
+		},
 	}, nil
 }
 
