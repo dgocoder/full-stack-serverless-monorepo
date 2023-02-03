@@ -22,12 +22,12 @@ linters:
     - gofmt
     - misspell
     - whitespace
-    - wsl
     - goconst
     - gocritic
     - nolintlint
     - nakedret
     - forbidigo
+    - wsl
 
 issues:
   exclude-use-default: false

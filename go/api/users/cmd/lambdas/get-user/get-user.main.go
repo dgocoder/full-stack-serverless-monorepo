@@ -2,51 +2,33 @@ package main
 
 import (
 	"context"
-	"encoding/json"
-	"errors"
-	"net/url"
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/dgocoder/full-stack-serverless-monorepo/go/api/users/internal/controllers"
+	"github.com/dgocoder/full-stack-serverless-monorepo/go/pkg/awsapigw"
 )
 
 func handler(
 	ctx context.Context,
 	request *events.APIGatewayProxyRequest,
 ) (events.APIGatewayProxyResponse, error) {
-	ctrl, err := controllers.NewUserController()
+	ctrl, err := controllers.NewUserController(ctx)
 	if err != nil {
-		return events.APIGatewayProxyResponse{}, err
+		return awsapigw.SendError(awsapigw.StatusServiceUnavailable, err.Error())
 	}
 
-	rawParam1, found := request.PathParameters["id"]
-	if !found {
-		return events.APIGatewayProxyResponse{}, errors.New("user id not specified")
-	}
-
-	userID, err := url.QueryUnescape(rawParam1)
+	userID, err := awsapigw.GetParamPath("id", request)
 	if err != nil {
-		return events.APIGatewayProxyResponse{}, errors.New("invalid user id specified")
+		return awsapigw.SendError(awsapigw.StatusBadRequest, err.Error())
 	}
 
 	user, err := ctrl.GetUser(ctx, userID)
 	if err != nil {
-		return events.APIGatewayProxyResponse{}, err
+		return awsapigw.SendError(awsapigw.StatusBadRequest, err.Error())
 	}
 
-	body, err := json.Marshal(user)
-	if err != nil {
-		return events.APIGatewayProxyResponse{}, err
-	}
-
-	return events.APIGatewayProxyResponse{
-		Body:       string(body),
-		StatusCode: 200,
-		Headers: map[string]string{
-			"Content-Type": "application/json",
-		},
-	}, nil
+	return awsapigw.SendResponse(awsapigw.StatusOK, user)
 }
 
 func main() {

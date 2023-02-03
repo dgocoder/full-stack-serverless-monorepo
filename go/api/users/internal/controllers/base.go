@@ -12,8 +12,8 @@ type UserController struct {
 }
 
 // NewUserController to interact with user service actions.
-func NewUserController() (*UserController, error) {
-	userRepo, err := ddbrepo.NewDDBUserRepository(context.TODO())
+func NewUserController(ctx context.Context) (*UserController, error) {
+	userRepo, err := ddbrepo.NewDDBUserRepository(ctx)
 	if err != nil {
 		return nil, err
 	}
