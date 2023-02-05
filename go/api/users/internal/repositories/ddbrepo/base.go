@@ -2,6 +2,7 @@ package ddbrepo
 
 import (
 	"context"
+	"os"
 
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
 	"github.com/dgocoder/full-stack-serverless-monorepo/go/api/users/internal/repositories"
@@ -9,7 +10,8 @@ import (
 )
 
 type ddb struct {
-	client *dynamodb.Client
+	client    *dynamodb.Client
+	tableName string
 }
 
 // NewDDBUserRepository dynamodb repository for user objects.
@@ -19,7 +21,10 @@ func NewDDBUserRepository(ctx context.Context) (repositories.UserRepository, err
 		return nil, err
 	}
 
+	tableName := os.Getenv("USERS_TABLE_NAME")
+
 	return &ddb{
-		client: ddbClient,
+		client:    ddbClient,
+		tableName: tableName,
 	}, nil
 }

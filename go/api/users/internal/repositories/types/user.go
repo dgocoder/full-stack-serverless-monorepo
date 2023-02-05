@@ -5,6 +5,6 @@ type CreateUser struct {
 }
 
 type User struct {
-	ID    string
-	Email string
+	ID    string `json:"id"`
+	Email string `json:"email"`
 }
