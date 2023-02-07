@@ -1,10 +1,12 @@
-import { Button } from "ui";
+import { Button } from 'ui';
 
-export default function Web() {
+const Web = () => {
   return (
     <div>
       <h1>Web</h1>
-      <Button />
+      <Button onClick={() => {}}>Boop</Button>
     </div>
   );
-}
+};
+
+export default Web;
