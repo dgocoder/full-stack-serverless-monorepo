@@ -1,8 +1,8 @@
-import { Api, Queue } from "sst/constructs";
+import { Api } from "sst/constructs";
 import { StackContext } from "sst/constructs";
-import { DDBStack } from "../../common/ddb/index";
+import { DDBStack } from "../../macros/ddb/index";
 
-export const UsersServiceStack = ({ stack, app }: StackContext) => {
+export const UsersServiceStack = ({ stack }: StackContext) => {
   const { table } = DDBStack({
     stack,
     tableName: "users",
@@ -15,6 +15,7 @@ export const UsersServiceStack = ({ stack, app }: StackContext) => {
       },
     ],
   });
+
   const api = new Api(stack, "users-svc");
   api.addRoutes(stack, {
     "GET /{id}": {
@@ -27,6 +28,7 @@ export const UsersServiceStack = ({ stack, app }: StackContext) => {
       },
     },
   });
+
   stack.addOutputs({
     UsersApiEndpoint: api.url,
   });
