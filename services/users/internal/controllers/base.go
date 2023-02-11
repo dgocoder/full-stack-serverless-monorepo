@@ -3,8 +3,8 @@ package controllers
 import (
 	"context"
 
-	"github.com/dgocoder/full-stack-serverless-monorepo/go/api/users/internal/repositories"
-	"github.com/dgocoder/full-stack-serverless-monorepo/go/api/users/internal/repositories/ddbrepo"
+	"github.com/dgocoder/full-stack-serverless-monorepo/services/users/internal/repositories"
+	"github.com/dgocoder/full-stack-serverless-monorepo/services/users/internal/repositories/ddbrepo"
 )
 
 type UserController struct {

@@ -3,7 +3,7 @@ package controllers
 import (
 	"context"
 
-	"github.com/dgocoder/full-stack-serverless-monorepo/go/api/users/internal/repositories/types"
+	"github.com/dgocoder/full-stack-serverless-monorepo/services/users/internal/repositories/types"
 )
 
 // GetUser retrieves the user with given ID.

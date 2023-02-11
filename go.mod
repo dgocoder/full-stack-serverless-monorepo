@@ -1,4 +1,4 @@
-module github.com/dgocoder/full-stack-serverless-monorepo/go
+module github.com/dgocoder/full-stack-serverless-monorepo
 
 go 1.19
 
