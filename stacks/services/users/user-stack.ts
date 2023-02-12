@@ -15,7 +15,7 @@ export const UsersServiceStack = ({ stack }: StackContext) => {
           function: {
             handler: 'services/users/cmd/lambdas/db-stream/dbstream.go',
             environment: {
-              USER_CREATED_TOPIC: userCreated.topicArn,
+              USER_CREATED_TOPIC_ARN: userCreated.topicArn,
             },
             permissions: [userCreated],
           },
