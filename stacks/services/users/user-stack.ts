@@ -1,8 +1,10 @@
 import { Api } from "sst/constructs";
-import { StackContext } from "sst/constructs";
+import { StackContext, use } from "sst/constructs";
 import { DDBStack } from "../../macros/ddb/index";
+import { SharedStack } from "../../shared";
 
 export const UsersServiceStack = ({ stack }: StackContext) => {
+  const { userCreated } = use(SharedStack);
   const { table } = DDBStack({
     stack,
     tableName: "users",
@@ -10,7 +12,13 @@ export const UsersServiceStack = ({ stack }: StackContext) => {
       {
         name: "dbstream",
         consumer: {
-          function: "services/users/cmd/lambdas/db-stream/dbstream.go",
+          function: {
+            handler: "services/users/cmd/lambdas/db-stream/dbstream.go",
+            environment: {
+              USER_CREATED_TOPIC: userCreated.topicArn,
+            },
+            permissions: [userCreated],
+          },
         },
       },
     ],

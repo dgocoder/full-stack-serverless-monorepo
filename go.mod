@@ -24,6 +24,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/kinesis v1.17.2 // indirect
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.30.1 // indirect
 	github.com/aws/aws-sdk-go-v2/service/sfn v1.17.1 // indirect
+	github.com/aws/aws-sdk-go-v2/service/sns v1.20.2 // indirect
 	github.com/aws/aws-sdk-go-v2/service/sso v1.12.0 // indirect
 	github.com/aws/aws-sdk-go-v2/service/ssooidc v1.14.0 // indirect
 	github.com/aws/aws-sdk-go-v2/service/sts v1.18.2 // indirect

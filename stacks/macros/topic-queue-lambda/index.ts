@@ -1,5 +1,6 @@
 import { Stack, Queue, Topic, FunctionDefinition } from "sst/constructs";
 import { Duration } from "aws-cdk-lib";
+import { SqsSubscription } from "aws-cdk-lib/aws-sns-subscriptions";
 
 type TopicQueueLambdaStackContext = {
   stack: Stack;
@@ -36,9 +37,7 @@ export const TopicQueueLambdaStack = ({
   });
 
   topics.forEach((topic) => {
-    topic.addSubscribers(stack, {
-      [topicQueue.queueName]: topicQueue,
-    });
+    topic.cdk.topic.addSubscription(new SqsSubscription(topicQueue.cdk.queue));
   });
 
   return {
