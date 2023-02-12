@@ -7,7 +7,7 @@ import (
 )
 
 func NewBaseS3Conf(ctx context.Context) (*s3.Client, error) {
-	conf, err := NewAWSConfig(ctx)
+	conf, err := newAWSConfig(ctx)
 	if err != nil {
 		return nil, err
 	}

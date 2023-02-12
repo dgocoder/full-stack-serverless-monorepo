@@ -7,7 +7,7 @@ import (
 )
 
 func NewBaseStepFunctionConf(ctx context.Context) (*sfn.Client, error) {
-	conf, err := NewAWSConfig(ctx)
+	conf, err := newAWSConfig(ctx)
 	if err != nil {
 		return nil, err
 	}

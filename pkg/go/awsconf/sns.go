@@ -7,7 +7,7 @@ import (
 )
 
 func NewSNSConf(ctx context.Context) (*sns.Client, error) {
-	conf, err := NewAWSConfig(ctx)
+	conf, err := newAWSConfig(ctx)
 	if err != nil {
 		return nil, err
 	}
