@@ -12,6 +12,7 @@ module.exports = {
       'error',
       { namedComponents: 'arrow-function', unnamedComponents: 'arrow-function' },
     ],
+    'react/require-default-props': 'off',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': [
       'error',

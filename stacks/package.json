@@ -1,0 +1,20 @@
+{
+  "name": "stacks",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./index.tsx",
+  "types": "./index.tsx",
+  "devDependencies": {
+    "eslint-config-custom": "workspace:*",
+    "prettier": "latest",
+    "tsconfig": "workspace:*",
+    "eslint": "8.25.0",
+    "eslint-config-custom-react": "workspace:*",
+    "typescript": "^4.5.2"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "printWidth": 100,
+    "arrowParens": "always"
+  }
+}

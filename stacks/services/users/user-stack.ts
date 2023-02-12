@@ -1,19 +1,19 @@
-import { Api } from "sst/constructs";
-import { StackContext, use } from "sst/constructs";
-import { DDBStack } from "../../macros/ddb/index";
-import { SharedStack } from "../../shared";
+import { Api, type StackContext, use } from 'sst/constructs';
+
+import { DDBStack } from '../../macros/ddb/index';
+import { SharedStack } from '../../shared';
 
 export const UsersServiceStack = ({ stack }: StackContext) => {
   const { userCreated } = use(SharedStack);
   const { table } = DDBStack({
     stack,
-    tableName: "users",
+    tableName: 'users',
     consumers: [
       {
-        name: "dbstream",
+        name: 'dbstream',
         consumer: {
           function: {
-            handler: "services/users/cmd/lambdas/db-stream/dbstream.go",
+            handler: 'services/users/cmd/lambdas/db-stream/dbstream.go',
             environment: {
               USER_CREATED_TOPIC: userCreated.topicArn,
             },
@@ -24,11 +24,11 @@ export const UsersServiceStack = ({ stack }: StackContext) => {
     ],
   });
 
-  const api = new Api(stack, "users-svc");
+  const api = new Api(stack, 'users-svc');
   api.addRoutes(stack, {
-    "GET /{id}": {
+    'GET /{id}': {
       function: {
-        handler: "services/users/cmd/lambdas/get-user/get-user.main.go",
+        handler: 'services/users/cmd/lambdas/get-user/get-user.main.go',
         environment: {
           USERS_TABLE_NAME: table.tableName,
         },

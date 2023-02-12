@@ -3,6 +3,7 @@ module.exports = {
   ignorePatterns: [
     '**/eslint-config-custom/index.js',
     '**/eslint-config-custom-react/index.js',
+    '**/node_modules/**',
     '.eslintrc.js',
   ],
   extends: [

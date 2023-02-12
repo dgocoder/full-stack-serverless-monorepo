@@ -1,2 +1,2 @@
-export * from "./ddb";
-export * from "./topic-queue-lambda";
+export * from './ddb';
+export * from './topic-queue-lambda';

@@ -1,33 +1,28 @@
+import { RemovalPolicy } from 'aws-cdk-lib';
+import { StartingPosition } from 'aws-cdk-lib/aws-lambda';
+import { SqsDestination } from 'aws-cdk-lib/aws-lambda-destinations';
 import {
-  Table,
-  Stack,
-  TableGlobalIndexProps,
-  TableConsumerProps,
   Queue,
-} from "sst/constructs";
-import { StartingPosition } from "aws-cdk-lib/aws-lambda";
-import { RemovalPolicy } from "aws-cdk-lib";
-import { SqsDestination } from "aws-cdk-lib/aws-lambda-destinations";
+  type Stack,
+  Table,
+  type TableConsumerProps,
+  type TableGlobalIndexProps,
+} from 'sst/constructs';
 
-type DDBStack = {
+type DDBStackProps = {
   stack: Stack;
   tableName: string;
+  consumers?: { consumer: TableConsumerProps; name: string }[];
   globalIndexes?: { pk: string; sk: string }[];
-  consumers?: { name: string; consumer: TableConsumerProps }[];
 };
 
-export const DDBStack = ({
-  stack,
-  tableName,
-  globalIndexes,
-  consumers,
-}: DDBStack) => {
+export const DDBStack = ({ stack, tableName, globalIndexes, consumers }: DDBStackProps) => {
   const table = new Table(stack, tableName, {
     fields: {
-      pk: "string",
-      sk: "string",
+      pk: 'string',
+      sk: 'string',
     },
-    primaryIndex: { partitionKey: "pk", sortKey: "sk" },
+    primaryIndex: { partitionKey: 'pk', sortKey: 'sk' },
     globalIndexes: globalIndexes?.reduce((acc, cv, index) => {
       acc[`gsi${index + 1}`] = { partitionKey: cv.pk, sortKey: cv.sk };
       return acc;
@@ -35,15 +30,14 @@ export const DDBStack = ({
     stream: !!consumers?.length,
     cdk: {
       table: {
-        removalPolicy:
-          stack.stage !== "prod" ? RemovalPolicy.DESTROY : RemovalPolicy.RETAIN,
+        removalPolicy: stack.stage === 'prod' ? RemovalPolicy.RETAIN : RemovalPolicy.DESTROY,
       },
     },
   });
 
   // Dynamically add table lambda consumers
   consumers?.forEach(({ consumer, name }) => {
-    const dlq = new Queue(stack, "DDB-DLQ");
+    const dlq = new Queue(stack, 'DDB-DLQ');
     table.addConsumers(stack, {
       [name]: {
         ...consumer,
