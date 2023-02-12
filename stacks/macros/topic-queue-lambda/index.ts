@@ -1,12 +1,12 @@
-import { Stack, Queue, Topic, FunctionDefinition } from "sst/constructs";
-import { Duration } from "aws-cdk-lib";
-import { SqsSubscription } from "aws-cdk-lib/aws-sns-subscriptions";
+import { Duration } from 'aws-cdk-lib';
+import { SqsSubscription } from 'aws-cdk-lib/aws-sns-subscriptions';
+import { type FunctionDefinition, Queue, type Stack, type Topic } from 'sst/constructs';
 
 type TopicQueueLambdaStackContext = {
-  stack: Stack;
-  name: string;
-  topics: Topic[];
   lambdaFunc: FunctionDefinition;
+  name: string;
+  stack: Stack;
+  topics: Topic[];
 };
 
 export const TopicQueueLambdaStack = ({

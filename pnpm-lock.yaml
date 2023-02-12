@@ -147,6 +147,22 @@ importers:
       tsconfig: link:../tsconfig
       typescript: 4.9.5
 
+  stacks:
+    specifiers:
+      eslint: 8.25.0
+      eslint-config-custom: workspace:*
+      eslint-config-custom-react: workspace:*
+      prettier: latest
+      tsconfig: workspace:*
+      typescript: ^4.5.2
+    devDependencies:
+      eslint: 8.25.0
+      eslint-config-custom: link:../js/packages/eslint-config-custom
+      eslint-config-custom-react: link:../js/packages/eslint-config-custom-react
+      prettier: 2.8.4
+      tsconfig: link:../js/packages/tsconfig
+      typescript: 4.9.5
+
 packages:
 
   /@ampproject/remapping/2.2.0:

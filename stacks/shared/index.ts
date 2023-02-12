@@ -1,6 +1,8 @@
-export * from "./topics";
-import { Stack } from "sst/constructs";
-import { TopicsStack } from "./topics";
+import type { Stack } from 'sst/constructs';
+
+import { TopicsStack } from './topics';
+
+export * from './topics';
 
 type SharedContext = {
   stack: Stack;
