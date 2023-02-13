@@ -15,11 +15,12 @@ jobs:
       url: https://github.com
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout source
+        uses: actions/checkout@v2
         with:
           fetch-depth: 0
 
-      - name: Install Node.js
+      - name: Install node
         uses: actions/setup-node@v3
         with:
           node-version: 18
@@ -45,26 +46,52 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
+      - name: Cache SST
+        id: cache-sst
+        uses: actions/cache@v3
+        with:
+          path: .sst
+          key: sst-${{ github.event.number }}
+
       - name: Install dependencies
         run: pnpm install
 
-      - name: Deploy Stack
+      - name: Deploy stack
         run: pnpm run deploy --stage=pr-${{ github.event.number }}
         env:
           AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
 
-      - name: Get time
-        uses: actions/github-script@v6
-        id: get-time
+      - name: Deploy to Vercel
+        uses: BetaHuhn/deploy-to-vercel-action@v1
+        id: deploy-vercel
         with:
-          script: return new Date().toGMTString()
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_WEB }}
+          CREATE_COMMENT: false
+          DELETE_EXISTING_COMMENT: false
+          PRODUCTION: false
+          GITHUB_DEPLOYMENT_ENV: preview
+          GITHUB_DEPLOYMENT: false
+
+      - name: Generate preview comment markdown
+        uses: actions/github-script@v6
+        id: gen-comment
+        with:
+          script: |
+            const script = require('./.github/scripts/preview-comment.js')
+            return script()
           result-encoding: string
-      - name: Add Preview Comment
+        env:
+          PREVIEW_URL: ${{steps.deploy-vercel.outputs.PREVIEW_URL}}
+          DEPLOYMENT_INSPECTOR_URL: ${{steps.deploy-vercel.outputs.DEPLOYMENT_INSPECTOR_URL}}
+
+      - name: Add preview comment
         uses: NejcZdovc/comment-pr@v2
         with:
-          file: "preview-comment.md"
+          message: ${{steps.gen-comment.outputs.result}}
         env:
-          TIME_STAMP: ${{steps.get-time.outputs.result}}
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}

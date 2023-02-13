@@ -15,11 +15,12 @@ jobs:
       # url: https://github.com // TODO add url to production environment
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout source
+        uses: actions/checkout@v2
         with:
           fetch-depth: 0
 
-      - name: Install Node.js
+      - name: Install node
         uses: actions/setup-node@v3
         with:
           node-version: 18
@@ -45,10 +46,17 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
+      - name: Cache SST
+        id: cache-sst
+        uses: actions/cache@v3
+        with:
+          path: .sst
+          key: sst-production
+
       - name: Install dependencies
         run: pnpm install
 
-      - name: Deploy Stack
+      - name: Deploy stack
         run: pnpm run deploy --stage=prod
         env:
           AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}

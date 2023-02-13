@@ -37,7 +37,9 @@ export const TopicQueueLambdaStack = ({
   });
 
   topics.forEach((topic) => {
-    topic.cdk.topic.addSubscription(new SqsSubscription(topicQueue.cdk.queue));
+    topic.addSubscribers(stack, {
+      [`${name}-queue`]: topicQueue,
+    });
   });
 
   return {
