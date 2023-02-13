@@ -12,11 +12,11 @@ importers:
     devDependencies:
       aws-cdk-lib: 2.62.2_constructs@10.1.156
       constructs: 10.1.156
-      sst: 2.0.16
+      sst: 2.0.18
       turbo: 1.7.4
       typescript: 4.9.5
 
-  js/apps/docs:
+  apps/docs:
     specifiers:
       '@babel/core': ^7.0.0
       '@types/node': ^17.0.12
@@ -34,18 +34,18 @@ importers:
       next: 13.1.6_pjwopsidmaokadturxaafygjp4
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-      ui: link:../../packages/ui
+      ui: link:../../pkg/js/ui
     devDependencies:
       '@babel/core': 7.20.12
       '@types/node': 17.0.45
       '@types/react': 18.0.27
       '@types/react-dom': 18.0.10
       eslint: 8.25.0
-      eslint-config-custom-react: link:../../packages/eslint-config-custom-react
-      tsconfig: link:../../packages/tsconfig
+      eslint-config-custom-react: link:../../pkg/js/eslint-config-custom-react
+      tsconfig: link:../../pkg/js/tsconfig
       typescript: 4.9.5
 
-  js/apps/web:
+  apps/web:
     specifiers:
       '@babel/core': ^7.0.0
       '@types/node': ^17.0.12
@@ -63,18 +63,18 @@ importers:
       next: 13.1.6_pjwopsidmaokadturxaafygjp4
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-      ui: link:../../packages/ui
+      ui: link:../../pkg/js/ui
     devDependencies:
       '@babel/core': 7.20.12
       '@types/node': 17.0.45
       '@types/react': 18.0.27
       '@types/react-dom': 18.0.10
       eslint: 8.25.0
-      eslint-config-custom-react: link:../../packages/eslint-config-custom-react
-      tsconfig: link:../../packages/tsconfig
+      eslint-config-custom-react: link:../../pkg/js/eslint-config-custom-react
+      tsconfig: link:../../pkg/js/tsconfig
       typescript: 4.9.5
 
-  js/packages/eslint-config-custom:
+  pkg/js/eslint-config-custom:
     specifiers:
       '@typescript-eslint/eslint-plugin': ^5.40.1
       eslint: ^8.25.0
@@ -110,7 +110,7 @@ importers:
       prettier: 2.8.4
       prettier-plugin-organize-imports: 3.2.2_prettier@2.8.4
 
-  js/packages/eslint-config-custom-react:
+  pkg/js/eslint-config-custom-react:
     specifiers:
       eslint: ^8.25.0
       eslint-config-custom: workspace:*
@@ -124,10 +124,10 @@ importers:
       eslint-plugin-react: 7.31.8_eslint@8.33.0
       eslint-plugin-react-hooks: 4.6.0_eslint@8.33.0
 
-  js/packages/tsconfig:
+  pkg/js/tsconfig:
     specifiers: {}
 
-  js/packages/ui:
+  pkg/js/ui:
     specifiers:
       '@types/react': ^18.0.17
       '@types/react-dom': ^18.0.6
@@ -157,10 +157,10 @@ importers:
       typescript: ^4.5.2
     devDependencies:
       eslint: 8.25.0
-      eslint-config-custom: link:../js/packages/eslint-config-custom
-      eslint-config-custom-react: link:../js/packages/eslint-config-custom-react
+      eslint-config-custom: link:../pkg/js/eslint-config-custom
+      eslint-config-custom-react: link:../pkg/js/eslint-config-custom-react
       prettier: 2.8.4
-      tsconfig: link:../js/packages/tsconfig
+      tsconfig: link:../pkg/js/tsconfig
       typescript: 4.9.5
 
 packages:
@@ -172,16 +172,16 @@ packages:
       '@jridgewell/gen-mapping': 0.1.1
       '@jridgewell/trace-mapping': 0.3.17
 
-  /@aws-cdk/asset-awscli-v1/2.2.64:
-    resolution: {integrity: sha512-2N6bLz//iKv0W8ZBRHIVdbsHXR7mV3yY12ImF5g3lzJRq6i/ZY5Uz19Y1eHGWz2f/+bZqDKHAJOlXqimqJZ1Uw==}
+  /@aws-cdk/asset-awscli-v1/2.2.66:
+    resolution: {integrity: sha512-MdC2UpjDVi0ePQkXZg938/FZvK5pu0o2im9legoojmNZNKGssqpscz5gPISeZhrW124WI8IF+6hYPkHVYnod2w==}
     dev: true
 
   /@aws-cdk/asset-kubectl-v20/2.1.1:
     resolution: {integrity: sha512-U1ntiX8XiMRRRH5J1IdC+1t5CE89015cwyt5U63Cpk0GnMlN5+h9WsWMlKlPXZR4rdq/m806JRlBMRpBUB2Dhw==}
     dev: true
 
-  /@aws-cdk/asset-node-proxy-agent-v5/2.0.52:
-    resolution: {integrity: sha512-sQhGP8QhAeP3ZsXxoOQrRFW/0VMH3HvI8NjZe/9ORtKwh8Gyjv2BJWIxlXLvRcc2o26FEl1oHIKRbaK/z/4iMw==}
+  /@aws-cdk/asset-node-proxy-agent-v5/2.0.55:
+    resolution: {integrity: sha512-wqw3I/Bdy3SURLiGKtU47Fkz6OnSPsNs9O0FlkJyBFWVh4e5kMe1BfEmc3kZ/QukvKxI+Fnqk9Yz8tui0goqiQ==}
     dev: true
 
   /@aws-cdk/aws-apigatewayv2-alpha/2.62.2-alpha.0_iqmstt3dpu37s47wyywi32lmnq:
@@ -231,9 +231,6 @@ packages:
   /@aws-cdk/cloud-assembly-schema/2.62.2:
     resolution: {integrity: sha512-oOjNdy9nZoz+dhuK/YBrfaT+ts2ge+RCy+9BtiFIspD0G+xkGODFB6pfIua6CnROWePEzhdEOpyZSJmqlc+XBw==}
     engines: {node: '>= 14.15.0'}
-    dependencies:
-      jsonschema: 1.4.1
-      semver: 7.3.8
     dev: true
     bundledDependencies:
       - jsonschema
@@ -257,7 +254,6 @@ packages:
     engines: {node: '>= 14.15.0'}
     dependencies:
       '@aws-cdk/cloud-assembly-schema': 2.62.2
-      semver: 7.3.8
     dev: true
     bundledDependencies:
       - semver
@@ -271,7 +267,7 @@ packages:
     resolution: {integrity: sha512-TvE1r2CUueyXOuHdEigYjIZVesInd9KN+K/TFFNfkkxRThiNxO6i4ZqqAVMoEjAamZZ1AA8WXJkjCz7YShHPQA==}
     dependencies:
       '@aws-crypto/util': 2.0.2
-      '@aws-sdk/types': 3.267.0
+      '@aws-sdk/types': 3.208.0
       tslib: 1.14.1
     dev: true
 
@@ -279,7 +275,7 @@ packages:
     resolution: {integrity: sha512-vF0eMdMHx3O3MoOXUfBZry8Y4ZDtcuskjjKgJz8YfIDjLStxTZrYXk+kZqtl6A0uCmmiN/Eb/JbC/CndTV1MHg==}
     dependencies:
       '@aws-crypto/util': 2.0.2
-      '@aws-sdk/types': 3.267.0
+      '@aws-sdk/types': 3.208.0
       tslib: 1.14.1
     dev: true
 
@@ -330,7 +326,7 @@ packages:
   /@aws-crypto/util/2.0.2:
     resolution: {integrity: sha512-Lgu5v/0e/BcrZ5m/IWqzPUf3UYFTy/PpeED+uc9SWUR1iZQL8XXbGQg10UfllwwBryO3hFF5dizK+78aoXC1eA==}
     dependencies:
-      '@aws-sdk/types': 3.267.0
+      '@aws-sdk/types': 3.208.0
       '@aws-sdk/util-utf8-browser': 3.188.0
       tslib: 1.14.1
     dev: true
@@ -1836,10 +1832,6 @@ packages:
       '@babel/helper-validator-identifier': 7.19.1
       to-fast-properties: 2.0.0
 
-  /@balena/dockerignore/1.0.2:
-    resolution: {integrity: sha512-wMue2Sy4GAVTk6Ic4tJVcnfdau+gx2EnG7S+uAEe+TWJFqE4YoWN4/H8MSLj4eYJKxGg26lZwboEniNiNwZQ6Q==}
-    dev: true
-
   /@esbuild/android-arm/0.16.13:
     resolution: {integrity: sha512-JmtqThupn9Yf+FzANE+GG73ASUkssnPwOsndUElhp23685QzRK+MO1UompOlBaXV9D5FTuYcPnw7p4mCq2YbZQ==}
     engines: {node: '>=12'}
@@ -2743,19 +2735,10 @@ packages:
     peerDependencies:
       constructs: ^10.0.0
     dependencies:
-      '@aws-cdk/asset-awscli-v1': 2.2.64
+      '@aws-cdk/asset-awscli-v1': 2.2.66
       '@aws-cdk/asset-kubectl-v20': 2.1.1
-      '@aws-cdk/asset-node-proxy-agent-v5': 2.0.52
-      '@balena/dockerignore': 1.0.2
-      case: 1.6.3
+      '@aws-cdk/asset-node-proxy-agent-v5': 2.0.55
       constructs: 10.1.156
-      fs-extra: 9.1.0
-      ignore: 5.2.4
-      jsonschema: 1.4.1
-      minimatch: 3.1.2
-      punycode: 2.3.0
-      semver: 7.3.8
-      yaml: 1.10.2
     dev: true
     bundledDependencies:
       - '@balena/dockerignore'
@@ -3038,11 +3021,6 @@ packages:
 
   /caniuse-lite/1.0.30001451:
     resolution: {integrity: sha512-XY7UbUpGRatZzoRft//5xOa69/1iGJRBlrieH6QYrkKLIFn3m7OVEJ81dSrKoy2BnKsdbX5cLrOispZNYo9v2w==}
-
-  /case/1.6.3:
-    resolution: {integrity: sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==}
-    engines: {node: '>= 0.8.0'}
-    dev: true
 
   /cdk-assets/2.62.2:
     resolution: {integrity: sha512-NbBLaHZ5NY+OSHBp+nQaEHIB+qsm3poySSpjnxsyWjX9OoaAMte5kknxpvu099NwFYWSk/DvWdNxec9UiA8JBw==}
@@ -3537,7 +3515,7 @@ packages:
   /duplexer2/0.1.4:
     resolution: {integrity: sha512-asLFVfWWtJ90ZyOUHMqk7/S2w2guQKxUI2itj3d92ADHhxUSbCMGi1f1cBcJ7xM1To+pE/Khbwo1yuNbMEPKeA==}
     dependencies:
-      readable-stream: 2.3.7
+      readable-stream: 2.1.5
     dev: true
 
   /duplexify/3.7.1:
@@ -5194,10 +5172,6 @@ packages:
       graceful-fs: 4.2.10
     dev: true
 
-  /jsonschema/1.4.1:
-    resolution: {integrity: sha512-S6cATIPVv1z0IlxdN+zUk5EPjkGCdnhN4wVSBlvoUO1tOLJootbo9CquNJmbIh4yikWHiUedhRYrNPn1arpEmQ==}
-    dev: true
-
   /jsx-ast-utils/3.3.3:
     resolution: {integrity: sha512-fYQHZTZ8jSfmWZ0iyzfwiU4WDX4HpHbMCZ3gPlWYiCl3BoeOTsqKBqnTVfH2rYT7eP5c3sVbeSPHnnJOaTrWiw==}
     engines: {node: '>=4.0'}
@@ -5476,8 +5450,8 @@ packages:
       brace-expansion: 2.0.1
     dev: true
 
-  /minimatch/6.1.6:
-    resolution: {integrity: sha512-6bR3UIeh/DF8+p6A9Spyuy67ShOq42rOkHWi7eUe3Ua99Zo5lZfGC6lJJWkeoK4k9jQFT3Pl7czhTXimG2XheA==}
+  /minimatch/6.2.0:
+    resolution: {integrity: sha512-sauLxniAmvnhhRjFwPNnJKaPFYyddAgbYdeUpHULtCT/GhzdCx/MDNy+Y40lBxTQUrMzDE8e0S43Z5uqfO0REg==}
     engines: {node: '>=10'}
     dependencies:
       brace-expansion: 2.0.1
@@ -6537,8 +6511,8 @@ packages:
     resolution: {integrity: sha512-UUFYD2oWbNwULH6WoVtLUOw8ch586B+HUqcsAjjjeoBQAM1bD4wZRXu01koaxyd8UeYpybWqW4h+lO1Okv40Tg==}
     dev: true
 
-  /sst/2.0.16:
-    resolution: {integrity: sha512-R0piWOSRrslHXFc9W5llV+3tKhRc3/ohWqkc8X0S6AX8BnJK5bE1sDeEw2MGgrfYu8qVR2M/dS5e3Y8isGC40Q==}
+  /sst/2.0.18:
+    resolution: {integrity: sha512-ycdmk9BvYwtUspkDUwpX0xAyXd1U8TfYawRFlf22pXDDyQl1tPcq/Vqb5HqysBnt1YzAA7P4lOmmRGzZiUn0MA==}
     hasBin: true
     peerDependencies:
       '@sls-next/lambda-at-edge': ^3.7.0
@@ -6601,13 +6575,13 @@ packages:
       kysely: 0.23.4
       kysely-codegen: 0.9.0_kysely@0.23.4
       kysely-data-api: 0.1.4_sdcrstsf6edfnc4acz357qq5py
-      minimatch: 6.1.6
+      minimatch: 6.2.0
       openid-client: 5.4.0
       ora: 6.1.2
       promptly: 3.2.0
       react: 17.0.2
       remeda: 1.6.1
-      undici: 5.18.0
+      undici: 5.19.1
       uuid: 9.0.0
       ws: 8.12.0
       yaml: 1.10.2
@@ -7039,8 +7013,8 @@ packages:
       which-boxed-primitive: 1.0.2
     dev: false
 
-  /undici/5.18.0:
-    resolution: {integrity: sha512-1iVwbhonhFytNdg0P4PqyIAXbdlVZVebtPDvuM36m66mRw4OGrCm2MYynJv/UENFLdP13J1nPVQzVE2zTs1OeA==}
+  /undici/5.19.1:
+    resolution: {integrity: sha512-YiZ61LPIgY73E7syxCDxxa3LV2yl3sN8spnIuTct60boiiRaE1J8mNWHO8Im2Zi/sFrPusjLlmRPrsyraSqX6A==}
     engines: {node: '>=12.18'}
     dependencies:
       busboy: 1.6.0

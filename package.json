@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "workspaces": [
-    "js/apps/*",
-    "js/packages/*"
+    "apps/*",
+    "pkg/js/*"
   ],
   "scripts": {
     "build": "turbo run build",
@@ -26,5 +26,10 @@
     "constructs": "10.1.156",
     "typescript": "^4.9.5"
   },
-  "packageManager": "pnpm@7.25.1"
+  "packageManager": "pnpm@7.25.1",
+  "prettier": {
+    "singleQuote": true,
+    "printWidth": 100,
+    "arrowParens": "always"
+  }
 }
