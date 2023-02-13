@@ -4,8 +4,8 @@ import { Stacks } from "./stacks";
 export default {
   config(_input) {
     return {
-      name: "my-sst-app",
-      region: "us-east-1",
+      name: "monorepo",
+      region: "us-east-2",
     };
   },
   stacks: (app) => Stacks(app),
