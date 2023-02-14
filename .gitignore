@@ -4,3 +4,5 @@ node_modules/
 .sst/
 .sst.config.*.mjs
 .next
+.vercel
+turbo-build.log

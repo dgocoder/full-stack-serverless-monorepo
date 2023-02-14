@@ -6,23 +6,21 @@ on:
       - main
   workflow_dispatch:
 
-env:
-  AWS_ACCOUNT_ID: 799088224448
-  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
-  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
-
 jobs:
   stack-deploy:
     name: Stack Deploy
     runs-on: ubuntu-latest
-    environment: production
+    environment:
+      name: production
+      # url: https://github.com // TODO add url to production environment
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout source
+        uses: actions/checkout@v2
         with:
           fetch-depth: 0
 
-      - name: Install Node.js
+      - name: Install node
         uses: actions/setup-node@v3
         with:
           node-version: 18
@@ -48,8 +46,19 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
+      - name: Cache SST
+        id: cache-sst
+        uses: actions/cache@v3
+        with:
+          path: .sst
+          key: sst-production
+
       - name: Install dependencies
         run: pnpm install
 
-      - name: Deploy Stack
-        run: pnpm deploy:prod
+      - name: Deploy stack
+        run: pnpm run deploy --stage=prod
+        env:
+          AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
