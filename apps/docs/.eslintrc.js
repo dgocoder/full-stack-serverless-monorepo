@@ -3,6 +3,8 @@ module.exports = {
   extends: ['eslint-config-custom-react'],
   ignorePatterns: ['next.config.js'],
   parserOptions: {
-    project: './apps/docs/tsconfig.json',
+    project: 'tsconfig.json',
+    tsconfigRootDir: __dirname,
+    sourceType: 'module',
   },
 };
