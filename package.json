@@ -13,7 +13,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "dev-svc": "sst dev",
     "deploy": "sst deploy",
-    "remove": "sst remove"
+    "destroy": "sst remove"
   },
   "engines": {
     "node": ">=18.0.0"
