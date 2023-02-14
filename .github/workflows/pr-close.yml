@@ -1,18 +1,17 @@
-name: Preview Deploy
+name: Preview Destroy
 
 on:
   pull_request:
+    types: [closed]
     branches:
       - main
 
 jobs:
-  stack-deploy:
+  stack-destroy:
     name: Stack Deploy
     runs-on: ubuntu-latest
     environment:
       name: preview
-      # TODO add url to preview environment
-      # url: https://github.com
     timeout-minutes: 15
     steps:
       - name: Checkout source
@@ -56,42 +55,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Deploy stack
-        run: pnpm run deploy --stage=pr-${{ github.event.number }}
+      - name: Destroy stack
+        run: pnpm run destroy --stage=pr-${{ github.event.number }}
         env:
           AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
-
-      - name: Deploy to Vercel
-        uses: BetaHuhn/deploy-to-vercel-action@v1
-        id: deploy-vercel
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_WEB }}
-          CREATE_COMMENT: false
-          DELETE_EXISTING_COMMENT: false
-          PRODUCTION: false
-          GITHUB_DEPLOYMENT_ENV: preview
-          GITHUB_DEPLOYMENT: false
-
-      - name: Generate preview comment markdown
-        uses: actions/github-script@v6
-        id: gen-comment
-        with:
-          script: |
-            const script = require('./.github/scripts/preview-comment.js')
-            return script()
-          result-encoding: string
-        env:
-          PREVIEW_URL: ${{steps.deploy-vercel.outputs.PREVIEW_URL}}
-          DEPLOYMENT_INSPECTOR_URL: ${{steps.deploy-vercel.outputs.DEPLOYMENT_INSPECTOR_URL}}
-
-      - name: Add preview comment
-        uses: NejcZdovc/comment-pr@v2
-        with:
-          message: ${{steps.gen-comment.outputs.result}}
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
