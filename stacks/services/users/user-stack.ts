@@ -29,6 +29,7 @@ export const UsersServiceStack = ({ stack }: StackContext) => {
     'GET /{id}': {
       function: {
         handler: 'services/users/cmd/lambdas/get-user/get-user.main.go',
+        architecture: 'arm_64',
         environment: {
           USERS_TABLE_NAME: table.tableName,
         },
